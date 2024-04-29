@@ -1,0 +1,65 @@
+Design Document                                                                                                     Paige Krueger
+Erinstagram
+
+Data:
+Choice - char
+Crop - char 
+Dim - char
+Brighten - char 
+Rotate90 - char
+Image[][] - array
+Brightness - double
+Dimness - double 
+CorCharacter[] - array/char
+     Assign values to the array (space, period, lower case o, uppercase O, a 0)
+
+Main function:
+
+User loads an image by entering a file name. Users can then choose between displaying their image in the form of characters, editing the image, or exiting the program. If they choose to display the image, the image will be displaying the form of various characters. If they chose to edit the image, they can choose between the options of cropping, dimming or brightening, or rotating the image. When chosen to exit, the user is prompted to enter a filename and the image is then saved to their computer. These 3 options are repeated until the user chooses to exit. 
+
+Functions:
+
+main()
+Data: Array for image uploaded and different characters. Chars for the different options users can pick
+Functionality: Users are offered the choices to load the image from a file, display image, edit the image or to exit the program. Users can choose any of these options and specific functions will be ran. These options are looped until the user decides to exit. After the user is done, their image will be saved in a new file. 
+
+Menu()
+Input Parameters: None
+Returned Output: char
+Functionality: Displays the menu options of uploading an image, displaying the image, editing the image and exiting the program and scans to see what user input is
+
+UploadImage()
+Input Parameters: Files from computer
+Returned Output: array
+Functionality: Allows users to input their file name and from there, the computer scans the file and uploads their image. 
+
+DisplayImage()
+Input Parameters: Image array
+Returned Output: array
+Functionality: Display the image in the form of various characters. 
+
+EditImageMenu()
+Input Parameters: User choice
+Returned Output: char
+Functionality: Displays the menu options of cropping, dimming or brightening, or rotating the image and scans to see what user input is
+
+Cropping()
+Input Parameters: Image array 
+Returned Output: array
+Functionality: Gets user input on how they want to crop the image, crops the image and uploads new data to the array. 
+
+DimmingBrightening()
+Input Parameters: Image array
+Returned Output: array
+Functionality: Gets user input on if they want to dim or brighten the image, and then by how much. Then uploads new data to the array.
+
+Rotating image()
+Input Parameters: Image array
+Returned Output: array
+Functionality: Gets user input on which direction they want to rotate the image, rotates the image by 90 degrees in said direction and then uploads new data to the array.
+
+ExitProgram()
+Input Parameters: Image array
+Returned Output: Return 0;
+Functionality: When the user wants to quit the function, it allows the user to enter a file name of their choice and from there it saves the document in a new file and then ends the program.
+
