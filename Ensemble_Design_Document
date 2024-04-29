@@ -2,10 +2,26 @@ Design Document
 Group Version
 Paige Krueger & Yael Collazo Osorio
 
-ogMenu() - 4/30 PK
-printf choices
-scanf userinput
-switch case/repeat if necessary
+
+crop() - 5/3 YCO
+printf user options
+scanf user inputs
+loop to crop pixels
+
+dim() - 4/31 YCO
+printf user options
+scanf user inputs
+loop to dim pixels
+
+Brit() - 4/31 YCO
+printf user options
+scanf user inputs
+loop to brightne pixels
+
+
+
+
+In progress
 
 uploadImage() - 4/31 PK
 printf what user should do
@@ -15,26 +31,22 @@ computer scan file and upload image
 displayImage() - 5/2 YCO
 display 2D array
 
-editMenu() - 4/30 PK
+exit() - 5/1 PK
+printf user options
+scanf user file name
+save new file
+printf goodbye
+end program
+
+
+Done
+
+ogMenu() - 4/30 PK
 printf choices
 scanf userinput
 switch case/repeat if necessary
 
-crop() - 5/3 YCO
-printf user options
-scanf user inputs
-loop to crop pixels
-
-dimBrit() - 4/31 YCO
-printf user options
-scanf user inputs
-loop to brightne/dim pixels
-
-saveImage(); - 5/2 PK
-printf user options
-scanf user file name
-save new file
-
-exit() - 5/1 PK
-printf goodbye
-end program
+editMenu() - 4/30 PK
+printf choices
+scanf userinput
+switch case/repeat if necessary
