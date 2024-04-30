@@ -7,47 +7,37 @@ Data
 - Input saved to choice (function)
 - Output image (function)
 - Repeat choices (exit)
-
 Image
 User is prompted choices to edit their image. Once the user choses a choice of edit they are
 returned with their image and prompted another choice to edit their edited image. Later
 prompted to save their image and a choice to exit/do another image.
-
 Functions
-
 displayMainMenu()
 -Switch case for prompts and questions
 -For the case of multiple options and the option to repeat
-
 loadImage()
 -Pointers, File, 2D array
 -Return none
 -Load pixels to memory
-
 displayImage();
 -Pointers, 2D array
 - Display image to user
-
+1
 editImage();
 -File, switch, get correct edit function
 -User to asked the correct edit function, sent to the correct function
-
 cropImage();
 -Switch, File*
 -User asked how much they are wanting to crop, function cuts pixels to desire length
-
 dimImage();
 -Loop, File, Function
 -User asked how much they want their image dimmed, function dims pixels one by one w/loop
-
 brightenImage();
 -Loop, File, Function
 -User asked how much they want their image brightened, image brightened one by one
-
 rotateImage();
 -Loop, *NEW IMAGE* fille*
 User asked to rotate their pic 90*, new image is created and rotated with loop?
-
 saveImage();
 -File*, 2D, Display
 -saves the image to the memory and prompts for user to save

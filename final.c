@@ -8,10 +8,19 @@
 #define FILE_NAME "image.txt"
 
 //Declare Functions
-
+int ogMenu();
+int uploadimage();
+void displayimage();
+int editMenu();
+void cropimage ();
+void dimimage();
+void brightenimage();
+void exitProgram();
 
 int main(){
 
+int image[][] //add values 
+int imageHeight = //VALUE, imagewidth = //VALUE;
 char choice;
 char echoice;
 
@@ -60,7 +69,7 @@ int ogMenu(char choice){
 	}
 	while(choice != '1' && choice !='2' && choice != '3')
 
-	return 0;
+	return choice;
 }
 
 
@@ -81,13 +90,18 @@ int uploadimage(){
 		}
 			
 	}
-
+	fclose(readFilePointer);
+	return 1;
 }
 
 
 
 int displayimage(){
 	//Insert For loop inside a for loop to print
+	printf("Current Image:  \n");
+	for (int **ROW = 0; ROW < imageHeight; ROW++){
+	for (int *COLUMN = 0; COLUMN < imagewidth; *COLUMN++){
+		printf("%d ", image[][]);
 
 }
 
@@ -98,9 +112,48 @@ int editMenu(char echoice){
 		scanf(" %c", &choice)
 	}
 	while(choice != '1' && choice !='2' && choice != '3')
-	return 0;
+	return choice;
 }
 
+	void cropimage(){
+	printf("Enter how much coordinates you would like to crop\n");
+	scanf("%d" ,    )
+	int croppedHigh, croppedWid
+	
+	
+	
+	
+	
+	
+}
+	void dimimage(){
+	printf("How much would you like to dim 	***EX***\n");
+	scanf("%d", &****);
+	
+	float dim = value
+	
+	for(int *ROW =0; *ROW < imageHeight; *ROW ++){
+	   for( int **column = 0; ***column < imageWidth; ***column++){
+	   
+	
+	}
+	
+	
+}
+	void brightenimage(){
+	printf("how much would you like to brighten ***EX***\n");
+	scanf("%d", &***);
+	
+	for(int **ROW =0; row < imageHeight; row++){
+	   for(int ***COLUMN = 0; column < imageWidth; column++){
+	   
+	
+	
+	}
+	
+	
+	
+}
 
 int exit(){
 	printf()
