@@ -3,177 +3,186 @@
 
 #include <stdio.h>
 
-//Define File
-
-#define FILE_NAME "image.txt"
-
-//Declare Functions
-int ogMenu();
-int uploadimage();
-void displayimage();
-int editMenu();
-void cropimage ();
-void dimimage();
-void brightenimage();
-void exitProgram();
+void ogMenu(char *choice);
+void uploadimage(int image[][500]);
+void displayimage(int image[][500], int imageWidth, int imageHeight);
+void editMenu(char *echoice);
+void cropimage(int *imageWidth, int *imageHeight, int image[][500]);
+void brightenimage(int image[][500]);
+void dimimage(int image[][500]);
+void done(char *fchoice, int imageWidth, int imageHeight, int image[][500]);
 
 int main(){
 
-int image[][] //add values 
-int imageHeight = //VALUE, imagewidth = //VALUE;
+int image[500][500];
+int imageHeight = 500;
+int imageWidth = 500;
 char choice;
 char echoice;
+char fchoice;
 
+	ogMenu(&choice);
 
-ogMenu(choice);
+	if(choice == '1'){
+		uploadimage(image);
+		
+	} else if(choice == '2'){
+		displayimage(image, imageWidth, imageHeight);
+		
+	}else if(choice == '3'){
+		editMenu(&echoice);
+		
+	if (echoice == '1'){
+		cropimage( &imageWidth, &imageHeight, image);
+	}else if (echoice == '2'){
+	  dimimage(image);
+	  
+	 }else if (echoice == '3'){
+	 	brightenimage(image);
+		 	
+	}else if(echoice == '0'){
+		printf("bye\n");
 
-switch(choice){
-
-	case '1': uploadimage();
-	break;
-	
-	case '2': displayimage();
-	break;
-
-	case '3': editMenu(echoice);
-	break;
-	
-	case '4': exit();
-	break;
-}
-
-switch(echoice){
-
-	case '1': cropimage();
-	break;
-	
-	case '2': dimimage();
-	break;
-
-	case '3': britimage();
-	break;
-	
-	case '4': exit();
-	break;
-}
-	
-
+	}else if(choice == '0'){
+		printf("bye\n");
+		return 0;
+	}
+	done(&fchoice, imageWidth, imageHeight, image);
 return 0;
 }
 
 
-int ogMenu(char choice){
+void ogMenu(char *choice){
 	do{
-		printf("Upload Image File [1]\nDisplay Image [2]\nEdit Image[3]\nExit [4]\n")
-		scanf(" %c", &choice)
+		printf("**ERINSTAGRAM**\n1: Load image\n2: Display image\n3: Edit image\n0: Exit\nChoose from one of the options above: ");
+		scanf(" %c", choice);
 	}
-	while(choice != '1' && choice !='2' && choice != '3')
-
-	return choice;
+	while(*choice != '1' && *choice !='2' && *choice != '3' && *choice != '0');
 }
 
 
-int uploadimage(){
-	//Bones are here, just need to update the file depending on what we want
-		
-	FILE* readFilePointer = fopen(READ_FILENAME, "r");
+
+void uploadimage(int image[][500]){	
+char FILE_NAME[500];
+
+	printf("Enter your file name : \n");
+	scanf("%s", FILE_NAME);
+
+	FILE *readFilePointer = fopen(FILE_NAME, "r");
 	
 	if(readFilePointer == NULL){
 		printf("Input file does not exist.\nGoodbye!\n");
-		return 0;
-	}
-	
-	else{ 
-	
-	for (int i = 0; i < 10; i++){
-		fscanf(readFilePointer, "%d", &whole[i]);
-		}
-			
-	}
+		
+		}else{ 
+		for (int i = 0; i < 500; i++){
+			for (int l = 0; l < 500; l++){
+				fscanf(readFilePointer, "%d ", &image[i][l]);
+		}}}
 	fclose(readFilePointer);
-	return 1;
-}
+	}
 
 
 
-int displayimage(){
-	//Insert For loop inside a for loop to print
-	printf("Current Image:  \n");
-	for (int **ROW = 0; ROW < imageHeight; ROW++){
-	for (int *COLUMN = 0; COLUMN < imagewidth; *COLUMN++){
-		printf("%d ", image[][]);
+void displayimage(int image[][500], int imageWidth, int imageHeight){
+	printf("Current Image: \n");
+	for (int i = 0; i < 500; i++){
+		for (int j = 0; j < 500; j++){
+			printf("%d ", image[i][j]);
+			
+	}
+	}
+	}
 
-}
-
-
-int editMenu(char echoice){
+void editMenu(char *echoice){
 	do{
-		printf("Crop Image [1]\nDim Image [2]\nBrighten Image[3]\n")
-		scanf(" %c", &choice)
+		printf("1: Crop Image [1]\n2: Dim Image\n3: Brighten Image\n0: Exit\nChoose from one of the options above: ");
+		scanf(" %c", echoice);
 	}
-	while(choice != '1' && choice !='2' && choice != '3')
-	return choice;
-}
+	while(*echoice != '1' && *echoice !='2' && *echoice != '3' && *echoice != '0');
+	}
 
-	void cropimage(){
+
+
+void cropimage(int *imageWidth, int *imageHeight, int image [][500]){	
+	int croppedWidth, croppedHeight;
+	
+	printf("Your currect max image height is 500x500\n");
 	printf("Enter how much coordinates you would like to crop\n");
-	scanf("%d" ,    )
-	int croppedHigh, croppedWid
-	
-	
-	
-	
-	
-	
-}
-	void dimimage(){
-	printf("How much would you like to dim 	***EX***\n");
-	scanf("%d", &****);
-	
-	float dim = value
-	
-	for(int *ROW =0; *ROW < imageHeight; *ROW ++){
-	   for( int **column = 0; ***column < imageWidth; ***column++){
-	   
-	
-	}
-	
-	
-}
-	void brightenimage(){
-	printf("how much would you like to brighten ***EX***\n");
-	scanf("%d", &***);
-	
-	for(int **ROW =0; row < imageHeight; row++){
-	   for(int ***COLUMN = 0; column < imageWidth; column++){
-	   
-	
-	
-	}
-	
-	
-	
-}
-
-int exit(){
-	printf()
-
-		FILE* dest_fp;
-		dest_fp = fopen(FILE_NAME, "w");
-	
-		if(dest_fp == NULL){
-			printf("Can't open file\n");
-			return 0;
-			}
-		else{
-			//Insert For loop inside a for loop to print
+		scanf("%d %d", &croppedHeight, &croppedWidth);
 			
-			fprintf(dest_fp, " %c", &Image[][]);
-			
-			}
-			fclose(dest_fp);
+			*imageHeight -=croppedHeight;
+			*imageWidth -=croppedWidth;
 		}
 
+void dimimage(int image[][500]){
+	char db;
+	for (int i = 0; i < 500; i++){
+	for (int l = 0; l < 500; l++){
+		scanf(" %d ", &image[i][l]);
+			if(db == '0'){ 
+				db = 'O';} 
+               		else if(db == 'O'){ 
+                		db = 'o';} 
+                	else if(db == 'o'){ 
+                		db = '.';} 
+                	else if (db == '.'){ 
+                		db = ' ';} 
+                	else if (db == ' '){ 
+                		printf("Image cannot be any dimmer\n");}}}
+}
+	
 
 
+void brightenimage(int image[][500]){
+	char db;
+	for (int i = 0; i < 500; i++){
+	for (int l = 0; l < 500; l++){
+		scanf("%d", &image[i][l]);
+			if(db == ' '){ 
+				db = '.';} 
+               		else if(db == '.'){ 
+                		db = 'o';} 
+                	else if(db == 'o'){ 
+                		db = 'O';} 
+                	else if (db == 'O'){ 
+                		db = '0';} 
+                	else if (db == '0'){ 
+                		printf("Image cannot be any brighter\n");}}}
+	   }
+	
+
+
+void done(char *fchoice, int imageWidth, int imageHeight, int image[][500]){
+
+	printf("Do you want to save your image? [Y/N]: ");
+  	  scanf(" %c", fchoice); 
+
+    if (*fchoice == 'Y' || *fchoice == 'y') {
+        char FILE_NAME[500];
+        printf("Enter the file name to save: ");
+        scanf("%s", FILE_NAME);
+
+        FILE *dest_fp = fopen(FILE_NAME, "w");
+
+        if (dest_fp == NULL) {
+            printf("Can't open file\n");
+            return;
+        } else {
+            for (int i = 0; i < imageWidth; i++) {
+                for (int j = 0; j < imageHeight; j++) {
+                    fprintf(dest_fp, "%d ", image[i][j]);
+                }
+                fprintf(dest_fp, "\n"); 
+            }
+            printf("Image saved successfully.\n");
+        }
+        fclose(dest_fp);
+    } else if (*fchoice == 'N' || *fchoice == 'n') {
+        printf("Goodbye!\n");
+    } else {
+        printf("Invalid choice.\n");
+         } 
+    }
+    }
+    
 
