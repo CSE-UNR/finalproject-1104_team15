@@ -31,9 +31,13 @@ int imageHeight = 500;
 int imageWidth = 500;
 char choice;
 char echoice;
+<<<<<<< HEAD
 char fchoice;
 <<<<<<< HEAD
 =======
+=======
+char fchoice;git
+>>>>>>> 579f2c9f8fd6d2e2082c4c86e8db47a2daec4de8
 double db;
 >>>>>>> 69e1a7f77bd853790bd5a591312ccbe79c1dbcad
 

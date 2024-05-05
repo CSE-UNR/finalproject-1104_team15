@@ -50,3 +50,21 @@ editMenu() - 4/30 PK
 printf choices
 scanf userinput
 switch case/repeat if necessary
+
+
+
+
+switch(choice){
+
+	case '1': printf("\n %d   \n", uploadimage(image));
+	break;
+	
+	case '2': displayimage(image);
+	break;
+
+	case '3': editMenu(echoice);
+	break;
+	
+	case '0': done(fchoice, imageWidth, imageHeight, image);
+	break;
+}
