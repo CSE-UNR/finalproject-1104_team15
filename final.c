@@ -20,7 +20,7 @@ int imageHeight = 500;
 int imageWidth = 500;
 char choice;
 char echoice;
-char fchoice;
+char fchoice;git
 double db;
 
 
