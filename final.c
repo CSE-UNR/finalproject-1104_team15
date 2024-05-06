@@ -5,7 +5,7 @@
 
 void ogMenu(char *choice);
 void uploadimage(int image[][500]);
-double displayimage(int image[][500], int imageWidth, int imageHeight);
+void displayimage(int image[][500], int imageWidth, int imageHeight);
 void editMenu(char *echoice);
 void cropimage(int *imageWidth, int *imageHeight, int image[][500]);
 void brightenimage(int image[][500]);
@@ -34,7 +34,7 @@ ogMenu(&choice);
 		return 0;
 		
 	if (echoice == '1'){
-		cropimage( &imageWidth, &imageHeight, image);}
+		cropimage(&imageWidth, &imageHeight, image);}
 	else if (echoice == '2'){
 	  dimimage(image);}
 	else if (echoice == '3'){
@@ -93,7 +93,7 @@ char FILE_NAME[500];
 
 
 
-double displayimage(int image[][500], int imageWidth, int imageHeight){
+void displayimage(int image[][500], int imageWidth, int imageHeight){
 	printf("Current Image: \n");
 	for (int i = 0; i < imageWidth; i++){
 		imageWidth = i;
