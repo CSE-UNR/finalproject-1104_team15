@@ -3,6 +3,8 @@ Group Version
 Paige Krueger & Yael Collazo Osorio
 
 
+wtf this is hard
+
 crop() - 5/3 YCO
 printf user options
 scanf user inputs
@@ -20,8 +22,7 @@ loop to brightne pixels
 
 
 
-
-In progress
+In progress?
 
 uploadImage() - 4/31 PK
 printf what user should do
@@ -31,12 +32,7 @@ computer scan file and upload image
 displayImage() - 5/2 YCO
 display 2D array
 
-exit() - 5/1 PK
-printf user options
-scanf user file name
-save new file
-printf goodbye
-end program
+
 
 
 Done
@@ -51,20 +47,10 @@ printf choices
 scanf userinput
 switch case/repeat if necessary
 
+exit() - 5/1 PK
+printf user options
+scanf user file name
+save new file
+printf goodbye
+end program
 
-
-
-switch(choice){
-
-	case '1': printf("\n %d   \n", uploadimage(image));
-	break;
-	
-	case '2': displayimage(image);
-	break;
-
-	case '3': editMenu(echoice);
-	break;
-	
-	case '0': done(fchoice, imageWidth, imageHeight, image);
-	break;
-}

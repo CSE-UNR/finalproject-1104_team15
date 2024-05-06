@@ -3,24 +3,28 @@
 
 #include <stdio.h>
 
+#define MAXw 500
+#define MAXh 500
+
 void ogMenu(char *choice);
-void uploadimage(int image[][500]);
-void displayimage(int image[][500], int imageWidth, int imageHeight);
+void uploadimage(char image[][MAXh]);
+void displayimage(char image[][MAXh], char imageWidth[MAXw], char imageHeight[MAXh]);
 void editMenu(char *echoice);
-void cropimage(int *imageWidth, int *imageHeight, int image[][500]);
-void brightenimage(int image[][500]);
-void dimimage(int image[][500]);
-void done(char *fchoice, int imageWidth, int imageHeight, int image[][500]);
+void cropimage(char *imageWidth[MAXw], char *imageHeight[MAXh], char image[][MAXh]);
+void brightenimage(char image[][MAXh]);
+void dimimage(char image[][MAXh]);
+void done(char *fchoice, char imageWidth[MAXw], char imageHeight[MAXh], char image[][MAXh]);
 
 int main(){
 
-int image[500][500];
-int imageHeight = 500;
-int imageWidth = 500;
+char image[MAXw][MAXh];
+char imageHeight[MAXh];
+char imageWidth[MAXw];
 char choice;
 char echoice;
 char fchoice;
 
+do{
 ogMenu(&choice);
 
 	if(choice == '1'){
@@ -28,20 +32,24 @@ ogMenu(&choice);
 	else if(choice == '2'){
 		displayimage(image, imageWidth, imageHeight);}
 	else if(choice == '3'){
-		editMenu(&echoice);}
+		do{
+		editMenu(&echoice);
+		
+			if (echoice == '1'){
+				cropimage(&imageWidth, &imageHeight, image);}
+			else if (echoice == '2'){
+	  			dimimage(image);}
+			else if (echoice == '3'){
+	 			brightenimage(image);}
+			else if(echoice == '0'){
+				printf("Okay!\n");}
+		}
+		while(choice == '1' || choice == '2' || choice == '3');}
 	else if(choice == '0'){
-		done(&fchoice, imageWidth, imageHeight, image);}
-		return 0;
-		
-	if (echoice == '1'){
-		cropimage(&imageWidth, &imageHeight, image);}
-	else if (echoice == '2'){
-	  dimimage(image);}
-	else if (echoice == '3'){
-	 	brightenimage(image);}
-	else if(echoice == '0'){
-		printf("Okay!\n");}
-		
+		done(&fchoice, imageWidth, imageHeight, image);
+		return 0;}
+}
+while(choice == '1' || choice == '2' || choice == '3');
 
 
 
@@ -74,8 +82,8 @@ void editMenu(char *echoice){
 	
 
 
-void uploadimage(int image[][500]){	
-char FILE_NAME[500];
+void uploadimage(char image[][MAXh]){	
+char FILE_NAME[MAXh];
 
 	printf("Enter your file name : ");
 	scanf("%s", FILE_NAME);
@@ -84,43 +92,41 @@ char FILE_NAME[500];
 	
 	if(readFilePointer == NULL){
 		printf("Input file does not exist.\n");}
-	else{for (int i = 0; i < 500; i++){
-		for (int l = 0; l < 500; l++){
-			fscanf(readFilePointer, "%d ", &image[i][l]);
-			fclose(readFilePointer);
+	else{for (int i = 0; i < MAXw; i++){
+		for (int l = 0; l < MAXh; l++){
+			fscanf(readFilePointer, " %c", &image[i][l]);
 		}}}
+		fclose(readFilePointer);
 	}
 
 
 
-void displayimage(int image[][500], int imageWidth, int imageHeight){
+void displayimage(char image[][MAXh], char imageWidth[MAXw], char imageHeight[MAXh]){
 	printf("Current Image: \n");
-	for (int i = 0; i < imageWidth; i++){
-		imageWidth = i;
-		for (int j = 0; j < imageHeight; j++){
-		imageHeight = j;
-			printf("%d ", image[i][j]);		
+	for (int i = 0; i < imageWidth[MAXw]; i++){
+		for (int j = 0; j < imageHeight[MAXh]; j++){
+			printf(" %c", image[i][j]);		
 	}}
 }
 
 
 
-void cropimage(int *imageWidth, int *imageHeight, int image [][500]){	
-	int croppedWidth, croppedHeight;
+void cropimage(char *imageWidth[MAXw], char *imageHeight[MAXh], char image [][MAXh]){	
+	char croppedWidth, croppedHeight;
 	
 	printf("Your currect max image height is 500x500\n");
 	printf("Enter how much coordinates you would like to crop\n");
-		scanf("%d %d", &croppedHeight, &croppedWidth);
+		scanf(" %c  %c", &croppedHeight, &croppedWidth);
 			
-			*imageHeight -=croppedHeight;
-			*imageWidth -=croppedWidth;
+			(*imageHeight[MAXh]) = imageHeight[MAXh] - croppedHeight;
+			(*imageWidth[MAXw]) = imageHeight[MAXw] - croppedWidth;
 		}
 
-void dimimage(int image[][500]){
+void dimimage(char image[][MAXh]){
 	char db;
 	for (int i = 0; i < 500; i++){
 	for (int l = 0; l < 500; l++){
-		scanf(" %d ", &image[i][l]);
+		scanf(" %c", &image[i][l]);
 			if(db == '0'){ 
 				db = 'O';} 
                		else if(db == 'O'){ 
@@ -135,11 +141,11 @@ void dimimage(int image[][500]){
 	
 
 
-void brightenimage(int image[][500]){
+void brightenimage(char image[][MAXh]){
 	char db;
 	for (int i = 0; i < 500; i++){
 	for (int l = 0; l < 500; l++){
-		scanf("%d", &image[i][l]);
+		scanf(" %c", &image[i][l]);
 			if(db == ' '){ 
 				db = '.';} 
                		else if(db == '.'){ 
@@ -154,14 +160,14 @@ void brightenimage(int image[][500]){
 	
 
 
-void done(char *fchoice, int imageWidth, int imageHeight, int image[][500]){
+void done(char *fchoice, char imageWidth[MAXw], char imageHeight[MAXh], char image[][MAXh]){
 
 	printf("Do you want to save your image? [Y/N]: ");
   	scanf(" %c", fchoice); 
 do{
 
 if(*fchoice == 'Y' || *fchoice == 'y'){
-char FILE_NAME[500];
+char FILE_NAME[MAXh];
 FILE* dest_fp;
 
 	do{
@@ -173,13 +179,13 @@ FILE* dest_fp;
 		if (dest_fp == NULL) {
    			 printf("Can't open file\n");} 
    		else{
-    			for (int i = 0; i < imageWidth; i++){
-        			for (int j = 0; j < imageHeight; j++) {
-            				fprintf(dest_fp, "%d ", image[i][j]);}
-        	fprintf(dest_fp, "\n");}
+    			for (int i = 0; i < imageWidth[MAXw]; i++){
+        			for (int j = 0; j < imageHeight[MAXh]; j++) {
+            				fprintf(dest_fp, " %c", image[i][j]);}
+        	fprintf(dest_fp, "\n");}}
     			printf("Image saved successfully.\n");
     				fclose(dest_fp);
-}}
+}
 	while(dest_fp == NULL);}
 
 else if(*fchoice == 'N' || *fchoice == 'n'){
