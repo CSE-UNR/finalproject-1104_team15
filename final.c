@@ -10,63 +10,65 @@ void ogMenu(char *choice);
 void uploadimage(char image[][MAXh]);
 void displayimage(char image[][MAXh], char imageWidth[MAXw], char imageHeight[MAXh]);
 void editMenu(char *echoice);
-void cropimage(char *imageWidth[MAXw], char *imageHeight[MAXh], char image[][MAXh]);
+void cropimage(char imageWidth[MAXw], char imageHeight[MAXh], char image[][MAXh]);
 void brightenimage(char image[][MAXh]);
 void dimimage(char image[][MAXh]);
 void done(char *fchoice, char imageWidth[MAXw], char imageHeight[MAXh], char image[][MAXh]);
 
 int main(){
 
-char image[MAXw][MAXh];
-char imageHeight[MAXh];
-char imageWidth[MAXw];
-char choice;
-char echoice;
-char fchoice;
+	char image[MAXw][MAXh];
+	char imageHeight[MAXh];
+	char imageWidth[MAXw];
+	char choice;
+	char echoice;
+	char fchoice;
 
-do{
-ogMenu(&choice);
+	do{
+	ogMenu(&choice);
 
-	if(choice == '1'){
-		uploadimage(image);} 
-	else if(choice == '2'){
-		displayimage(image, imageWidth, imageHeight);}
-	else if(choice == '3'){
-		do{
-		editMenu(&echoice);
+		if(choice == '1'){
+			uploadimage(image);} 
+		else if(choice == '2'){
+			displayimage(image, imageWidth, imageHeight);}
+		else if(choice == '3'){
+			do{
+			editMenu(&echoice);
 		
 			if (echoice == '1'){
-				cropimage(&imageWidth, &imageHeight, image);}
+				cropimage(imageWidth, imageHeight, image);}
 			else if (echoice == '2'){
 	  			dimimage(image);}
 			else if (echoice == '3'){
 	 			brightenimage(image);}
 			else if(echoice == '0'){
-				printf("Okay!\n");}
+				}
 		}
-		while(choice == '1' || choice == '2' || choice == '3');}
-	else if(choice == '0'){
+		while(echoice == '1' || echoice == '2' || echoice == '3');}
+	else if(echoice == '0'){
 		done(&fchoice, imageWidth, imageHeight, image);
-		return 0;}
-}
-while(choice == '1' || choice == '2' || choice == '3');
-
-
-
-return 0;
-}
-
-
-
-void ogMenu(char *choice){
-	do{
-		printf("**ERINSTAGRAM**\n1: Load image\n2: Display image\n3: Edit image\n0: Exit\nChoose from one of the options above: ");
-		scanf(" %c", choice);
-	if(*choice != '1' && *choice !='2' && *choice != '3' && *choice != '0'){
-		printf("Invalid Choice\n");}
+		if(fchoice == 'Y' || fchoice == 'y'){
+		}
+		}
 	}
-	while(*choice != '1' && *choice !='2' && *choice != '3' && *choice != '0');
-}
+	while(choice == '1' || choice == '2' || choice == '3');
+
+
+
+	return 0;
+	}
+
+
+
+	void ogMenu(char *choice){
+		do{
+		printf("**ERINSTAGRAM**\n1: Load image\n2: Display image\n3: Edit image\n0: Exit\nChoose from one of the options above: ");
+			scanf(" %c", choice);
+		if(*choice != '1' && *choice !='2' && *choice != '3' && *choice != '0'){
+			printf("Invalid Choice\n");}
+		}
+		while(*choice != '1' && *choice !='2' && *choice != '3' && *choice != '0');
+	}
 	
 	
 
@@ -97,67 +99,71 @@ char FILE_NAME[MAXh];
 			fscanf(readFilePointer, " %c", &image[i][l]);
 		}}}
 		fclose(readFilePointer);
+		printf("image uploaded\n");
 	}
 
 
 
 void displayimage(char image[][MAXh], char imageWidth[MAXw], char imageHeight[MAXh]){
 	printf("Current Image: \n");
-	for (int i = 0; i < imageWidth[MAXw]; i++){
-		for (int j = 0; j < imageHeight[MAXh]; j++){
-			printf(" %c", image[i][j]);		
-	}}
+	for (int i = 0; i < imageWidth[0]; i++){
+		for (int l = 0; l < imageHeight[0]; l++){
+			printf("%c", image[i][l]);		
+	}
+	printf("\n");
+	}
 }
 
 
 
-void cropimage(char *imageWidth[MAXw], char *imageHeight[MAXh], char image [][MAXh]){	
-	char croppedWidth, croppedHeight;
+void cropimage(char imageWidth[MAXw], char imageHeight[MAXh], char image [][MAXh]){	
+	int croppedWidth, croppedHeight;
 	
-	printf("Your currect max image height is 500x500\n");
 	printf("Enter how much coordinates you would like to crop\n");
-		scanf(" %c  %c", &croppedHeight, &croppedWidth);
+		scanf("%d  %d", &croppedHeight, &croppedWidth);
 			
-			(*imageHeight[MAXh]) = imageHeight[MAXh] - croppedHeight;
-			(*imageWidth[MAXw]) = imageHeight[MAXw] - croppedWidth;
+			imageHeight[0] -= croppedHeight;
+			imageWidth[0] -= croppedWidth;
 		}
 
 void dimimage(char image[][MAXh]){
-	char db;
-	for (int i = 0; i < 500; i++){
-	for (int l = 0; l < 500; l++){
-		scanf(" %c", &image[i][l]);
-			if(db == '0'){ 
-				db = 'O';} 
-               		else if(db == 'O'){ 
-                		db = 'o';} 
-                	else if(db == 'o'){ 
-                		db = '.';} 
-                	else if (db == '.'){ 
-                		db = ' ';} 
-                	else if (db == ' '){ 
-                		printf("Image cannot be any dimmer\n");}}}
-}
+	char db, currentchar;
+	int dimm, brightness;
 	
-
+	printf("Enter how much you would like dimmed (0-4)\n");
+	scanf("%d", &dimm);
+	
+	char dimarray[5] = {' ','.','o','O','0'};
+	for (int i = 0; i < MAXw; i++){
+	for (int l = 0; l < MAXh; l++){
+		 currentchar = image[i][l];
+		 brightness = currentchar - 'O';
+		 
+		 brightness -= dimm;
+	image[i][l] = brightness[dimarray];
+	}
+}
+	printf("Image dimmed\n");
+}
 
 void brightenimage(char image[][MAXh]){
-	char db;
-	for (int i = 0; i < 500; i++){
-	for (int l = 0; l < 500; l++){
-		scanf(" %c", &image[i][l]);
-			if(db == ' '){ 
-				db = '.';} 
-               		else if(db == '.'){ 
-                		db = 'o';} 
-                	else if(db == 'o'){ 
-                		db = 'O';} 
-                	else if (db == 'O'){ 
-                		db = '0';} 
-                	else if (db == '0'){ 
-                		printf("Image cannot be any brighter\n");}}}
-	   }
+	int brighten, brit;
+	char current;
+	char brightness[5] = {' ', '.','o','O','0'};
+	printf("How much would you like to be brightened (0-4)\n");
+	scanf("%d", &brighten);
 	
+	for (int i = 0; i < MAXw; i++){
+	for (int l = 0; l < MAXh; l++){
+		 current = image[i][l];
+		 brit = current - 'O';
+		 
+		brit += brighten; 
+	image[i][l] = brightness[brit];
+	}
+	  }
+	printf("Image Brightened\n");
+	}
 
 
 void done(char *fchoice, char imageWidth[MAXw], char imageHeight[MAXh], char image[][MAXh]){
@@ -179,12 +185,16 @@ FILE* dest_fp;
 		if (dest_fp == NULL) {
    			 printf("Can't open file\n");} 
    		else{
-    			for (int i = 0; i < imageWidth[MAXw]; i++){
-        			for (int j = 0; j < imageHeight[MAXh]; j++) {
-            				fprintf(dest_fp, " %c", image[i][j]);}
-        	fprintf(dest_fp, "\n");}}
+    			for (int i = 0; i < imageWidth[0]; i++){
+        			for (int l = 0; l < imageHeight[0]; l++) {
+            				fprintf(dest_fp, " %c", image[i][l]);
+            				}
+        	fprintf(dest_fp, "\n");
+        	
+        	
+        	}
     			printf("Image saved successfully.\n");
-    				fclose(dest_fp);
+    				fclose(dest_fp);}
 }
 	while(dest_fp == NULL);}
 
