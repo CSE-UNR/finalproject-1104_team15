@@ -4,23 +4,28 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define MAXw 500
-#define MAXh 500
+#define MAX_WIDTH 500
+
+#define MAX_HEIGHT 500
 
 void ogMenu(char *choice);
-void uploadimage(char image[][MAXh], int imageWidth[MAXw], int imageHeight[MAXh]);
-void displayimage(char image[][MAXh], int imageWidth[MAXw], int imageHeight[MAXh]);
+void uploadimage(FILE *dest_fp, int *MAXh, int *MAXw, char string[], char image[][MAX_HEIGHT]);
+void displayimage(char image[][MAX_HEIGHT], int imageWidth, int imageHeight);
 void editMenu(char *echoice);
-void cropimage(int imageWidth[MAXw], int imageHeight[MAXh], char image[][MAXh]);
-void brightenimage(char image[][MAXh]);
-void dimimage(char image[][MAXh]);
-void done(char *fchoice, int imageWidth[MAXw], int imageHeight[MAXh], char image[][MAXh]);
+void cropimage(int *imageWidth, int *imageHeight, char image[][MAX_HEIGHT]);
+void brightenimage(char image[][MAX_HEIGHT]);
+void dimimage(char image[][MAX_HEIGHT]);
+void done(char *fchoice, int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT], char image[][MAX_HEIGHT]);
+
 
 int main(){
 
-	char image[MAXw][MAXh];
-	int imageHeight[MAXh];
-	int imageWidth[MAXw];
+	char image[MAX_WIDTH][MAX_HEIGHT];
+	int imageHeight[MAX_HEIGHT];
+	int imageWidth[MAX_WIDTH] ;
+	FILE *dest_fp;
+	int MAXh, MAXw;
+	char string [MAX_HEIGHT];
 	char choice;
 	char echoice;
 	char fchoice;
@@ -29,9 +34,9 @@ int main(){
 	ogMenu(&choice);
 
 		if(choice == '1'){
-			uploadimage(image, imageWidth, imageHeight);} 
+			uploadimage(dest_fp, &MAXh, &MAXw, string, image);} 
 		else if(choice == '2'){
-			displayimage(image, imageWidth, imageHeight);}
+			displayimage(image, *imageWidth, *imageHeight);}
 		else if(choice == '3'){
 			do{
 			editMenu(&echoice);
@@ -83,26 +88,53 @@ void editMenu(char *echoice){
 	
 
 
-void uploadimage(char image[][MAXh], int imageWidth[MAXw], int imageHeight[MAXh]){	
-	int index = 0;
-	while(fscanf(dest_fp, " %c %c", &image[index][MAXw], &image[index][MAXh]) == 2
-		index++;}
-		return index;
+void uploadimage(FILE *dest_fp, int *MAXh, int *MAXw, char string[], char image[][MAX_HEIGHT]){	
+	int allrows = 0, allcolumns = 0;
+	char input;
+	
+	printf("File name? ");
+	scanf("%s", string);
+	
+	dest_fp = fopen(string, "r");
+	printf("Image Uploaded\n");
+	
+	if (dest_fp == NULL){
+		printf("ERROR\n");
+		return;
 		}
-	
+	}
 
 
-void displayimage(char image[][MAXh], int imageWidth[], int imageHeight[]){
-	
-	for(int MAXwI = 0; MAXwI < MAXw; MAXwI++){
-		printf(" %c %c", &image[MAXwI][MAXw], &image[MAXwI][MAXh]);
-		}}
-	
-	
-	
+void displayimage(char image[][MAX_HEIGHT], int imageWidth, int imageHeight){
+	for (int i= 0; i < imageWidth; i++){
+		for (int l = 0; l < imageHeight; l++){
+		
+		switch (image[i][l]){
+		case 0:
+			printf(" ");
+			break;
+		case 1:
+			printf(".");
+			break;
+		case 2:
+			printf("o");
+			break;
+		case 3:
+			printf("O");
+			break;
+		case 4:
+			printf("0");
+			break;
+		default: 
+			printf(" ");
+			break;
+			}}
+			printf("\n");
+			}}
+			
 	
 
-void cropimage(int imageWidth[MAXw], int imageHeight[MAXh], char image [][MAXh]){	
+void cropimage(int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT], char image [][MAX_HEIGHT]){	
 char brightness[5] = {' ', '.','o','O','0'};	
 	int croppedWidth, croppedHeight;
 	
@@ -113,7 +145,7 @@ char brightness[5] = {' ', '.','o','O','0'};
 			imageWidth[0] -= croppedWidth;
 		}
 
-void dimimage(char image[][MAXh]){
+void dimimage(char image[][MAX_HEIGHT]){
 char brightness[5] = {' ', '.','o','O','0'};
 	char db, currentchar;
 	int dimm, bright;
@@ -122,8 +154,8 @@ char brightness[5] = {' ', '.','o','O','0'};
 	scanf("%d", &dimm);
 	
 	char dimarray[5] = {' ','.','o','O','0'};
-	for (int i = 0; i < MAXw; i++){
-	for (int l = 0; l < MAXh; l++){
+	for (int i = 0; i < MAX_WIDTH; i++){
+	for (int l = 0; l < MAX_HEIGHT; l++){
 		 currentchar = image[i][l];
 		 bright = currentchar - 'O';
 		 
@@ -131,18 +163,17 @@ char brightness[5] = {' ', '.','o','O','0'};
 	image[i][l] = bright[dimarray];
 	}
 }
-	printf("Image dimmed\n");
-}
+	printf("Image dimmed\n");}
 
-void brightenimage(char image[][MAXh]){
+void brightenimage(char image[][MAX_HEIGHT]){
 	int brighten, brit;
 	char current;
 	char brightness[5] = {' ', '.','o','O','0'};
 	printf("How much would you like to be brightened (0-4)\n");
 	scanf("%d", &brighten);
 	
-	for (int i = 0; i < MAXw; i++){
-	for (int l = 0; l < MAXh; l++){
+	for (int i = 0; i < MAX_WIDTH; i++){
+	for (int l = 0; l < MAX_HEIGHT; l++){
 		 current = image[i][l];
 		 brit = current - 'O';
 		 
@@ -154,14 +185,14 @@ void brightenimage(char image[][MAXh]){
 	}
 
 
-void done(char *fchoice, int imageWidth[MAXw], int imageHeight[MAXh], char image[][MAXh]){
+void done(char *fchoice, int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT], char image[][MAX_HEIGHT]){
 
 	printf("Do you want to save your image? [Y/N]: ");
   	scanf(" %c", fchoice); 
 do{
 
 if(*fchoice == 'Y' || *fchoice == 'y'){
-char FILE_NAME[MAXh];
+char FILE_NAME[MAX_HEIGHT];
 FILE* dest_fp;
 
 	do{
