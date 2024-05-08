@@ -2,15 +2,13 @@
 //Paige Krueger & Yael Collazo Osorio
 
 #include <stdio.h>
-#include <stdbool.h>
 
 #define MAX_WIDTH 500
-
 #define MAX_HEIGHT 500
 
 void ogMenu(char *choice);
 void uploadimage(FILE *dest_fp, int *MAXh, int *MAXw, char string[], char image[][MAX_HEIGHT]);
-void displayimage(char image[][MAX_HEIGHT], int imageWidth, int imageHeight);
+void displayimage(FILE *fp ,char image[][MAX_HEIGHT], int imageWidth[][MAX_HEIGHT], int imageHeight[][MAX_HEIGHT]);
 void editMenu(char *echoice);
 void cropimage(int *imageWidth, int *imageHeight, char image[][MAX_HEIGHT]);
 void brightenimage(char image[][MAX_HEIGHT]);
@@ -21,9 +19,10 @@ void done(char *fchoice, int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT],
 int main(){
 
 	char image[MAX_WIDTH][MAX_HEIGHT];
-	int imageHeight[MAX_HEIGHT];
-	int imageWidth[MAX_WIDTH] ;
+	int imageHeight[MAX_HEIGHT][MAX_WIDTH];
+	int imageWidth[MAX_WIDTH][MAX_HEIGHT] ;
 	FILE *dest_fp;
+	FILE *fp;
 	int MAXh, MAXw;
 	char string [MAX_HEIGHT];
 	char choice;
@@ -36,13 +35,13 @@ int main(){
 		if(choice == '1'){
 			uploadimage(dest_fp, &MAXh, &MAXw, string, image);} 
 		else if(choice == '2'){
-			displayimage(image, *imageWidth, *imageHeight);}
+			displayimage(fp,image, imageWidth, imageHeight);}
 		else if(choice == '3'){
 			do{
 			editMenu(&echoice);
 		
 			if (echoice == '1'){
-				cropimage(imageWidth, imageHeight, image);}
+				cropimage(&imageWidth[0][0], &imageHeight[0][0], image);}
 			else if (echoice == '2'){
 	  			dimimage(image);}
 			else if (echoice == '3'){
@@ -52,7 +51,7 @@ int main(){
 			}
 			while(echoice == '1' || echoice == '2' || echoice == '3');}
 		else if(echoice == '0'){
-		done(&fchoice, imageWidth, imageHeight, image);
+		done(&fchoice, &imageWidth[0][0], &imageHeight[0][0], image);
 		}
 	}
 	while(choice == '1' || choice == '2' || choice == '3');
@@ -105,33 +104,33 @@ void uploadimage(FILE *dest_fp, int *MAXh, int *MAXw, char string[], char image[
 	}
 
 
-void displayimage(char image[][MAX_HEIGHT], int imageWidth, int imageHeight){
-	for (int i= 0; i < imageWidth; i++){
-		for (int l = 0; l < imageHeight; l++){
-		
-		switch (image[i][l]){
-		case 0:
-			printf(" ");
-			break;
-		case 1:
-			printf(".");
-			break;
-		case 2:
-			printf("o");
-			break;
-		case 3:
-			printf("O");
-			break;
-		case 4:
-			printf("0");
-			break;
-		default: 
-			printf(" ");
-			break;
-			}}
-			printf("\n");
-			}}
-			
+void displayimage(FILE *fp, char image[][MAX_HEIGHT], int imageWidth[][MAX_HEIGHT], int imageHeight[][MAX_HEIGHT]){
+    for (int i = 500; i < imageWidth[0][0]; i++) {
+        for (int l = 500; l < imageHeight[0][0]; l++) {
+            switch (image[i][l]) {
+                case 0:
+                    fprintf(fp, " ");
+                    break;
+                case 1:
+                    fprintf(fp, ".");
+                    break;
+                case 2:
+                    fprintf(fp, "o");
+                    break;
+                case 3:
+                    fprintf(fp, "O");
+                    break;
+                case 4:
+                    fprintf(fp, "0");
+                    break;
+                default:
+                    fprintf(fp, " ");
+                    break;
+            }
+        }
+        fprintf(fp, "\n");
+    }
+}
 	
 
 void cropimage(int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT], char image [][MAX_HEIGHT]){	
@@ -191,13 +190,13 @@ void done(char *fchoice, int imageWidth[MAX_WIDTH], int imageHeight[MAX_HEIGHT],
   	scanf(" %c", fchoice); 
 do{
 
-if(*fchoice == 'Y' || *fchoice == 'y'){
-char FILE_NAME[MAX_HEIGHT];
-FILE* dest_fp;
+	if(*fchoice == 'Y' || *fchoice == 'y'){
+	char FILE_NAME[MAX_HEIGHT];
+	FILE* dest_fp;
 
 	do{
         	printf("Enter the file name to save: ");
-        	fgets(FILE_NAME, sizeof(FILE_NAME), stdin);
+        	scanf("%s", FILE_NAME);
 		
 		dest_fp = fopen(FILE_NAME, "w");
 
@@ -214,15 +213,15 @@ FILE* dest_fp;
         	}
     			printf("Image saved successfully.\n");
     				fclose(dest_fp);}
-}
+	}
 	while(dest_fp == NULL);}
 
-else if(*fchoice == 'N' || *fchoice == 'n'){
+	else if(*fchoice == 'N' || *fchoice == 'n'){
         printf("Goodbye!\n");} 
-else{
+	else{
         printf("Invalid choice.\n");}
-}
-while(*fchoice != 'Y' && *fchoice !='y' && *fchoice != 'N' && *fchoice != 'n');
+	}
+	while(*fchoice != 'Y' && *fchoice !='y' && *fchoice != 'N' && *fchoice != 'n');
     }
     
 
